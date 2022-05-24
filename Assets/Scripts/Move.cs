@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move: MonoBehaviour //esa clase creada llamada Move tiene que llamarse exactamente igual que el fichero (incluido mayúsculas y minúsculas)
+public class Move: MonoBehaviour //esa clase creada llamada Move tiene que llamarse exactamente igual que el fichero (incluido mayï¿½sculas y minï¿½sculas)
 {
     [SerializeField]
     Vector3 velocidad;
     //public Vector3 velocidad; //variable vector velocidad para el desplazamiento
-    //hago este atributo publico por C# por defecto los hace privados y lo necesito público para poder acceder a él desde unity
+    //hago este atributo publico por C# por defecto los hace privados y lo necesito pï¿½blico para poder acceder a ï¿½l desde unity
 
     [SerializeField]
     float velRotation;
@@ -20,9 +20,9 @@ public class Move: MonoBehaviour //esa clase creada llamada Move tiene que llama
         //el programa da saltos por el numero de fotogramas y cada dispositivo trabaja a unos fotogramas luego necesito multiplicar la velocidad por un atributo que me regule
         //esos fotogramas por vuelta/loop/update. Para ello uso deltaTime
         //ahora me doy cuenta que con esta velocidad establecida el desplazamiento es muy lento. Para no tener que estar modificando codigo constantemente voy a hacer este atributo
-        //público, es decir, que lo pueda modificar desde unity (modificado en tiempo de ejecuión), pero cuidado luego sí tienes que ponerlo definitivo en el archivo script, lo otro solo es de testeo
-        //por último comento el new o inicialización de la velocidad porque lo he hehco modificable desde la interfaz (y asi no tengo que venir aquí)
-        //ahora hay otra cuestión, hacer publicos atributos puede dar error, entonces unity da otra opción a hacerlo público, SerializeField permite que sea privado pero el desarrollador
+        //pï¿½blico, es decir, que lo pueda modificar desde unity (modificado en tiempo de ejecuiï¿½n), pero cuidado luego sï¿½ tienes que ponerlo definitivo en el archivo script, lo otro solo es de testeo
+        //por ï¿½ltimo comento el new o inicializaciï¿½n de la velocidad porque lo he hehco modificable desde la interfaz (y asi no tengo que venir aquï¿½)
+        //ahora hay otra cuestiï¿½n, hacer publicos atributos puede dar error, entonces unity da otra opciï¿½n a hacerlo pï¿½blico, SerializeField permite que sea privado pero el desarrollador
         //lo modifique desde la interfaz de unity
     }
 
@@ -31,10 +31,10 @@ public class Move: MonoBehaviour //esa clase creada llamada Move tiene que llama
     {
         //transform.Translate(new Vector3(Input.GetAxis("Vertical"), 0.0f, Input.GetAxis("Horizontal")));
         //quiero que la velocidad a la que me voy a desplazar sea constante independientemente del dispositivo donde ejecute (), para ello uso time.deltaTime
-        transform.Translate (new Vector3(Input.GetAxis("Vertical") * velocidad.z * Time.deltaTime, 
+        transform.Translate (new Vector3(Input.GetAxis("Horizontal") * velocidad.z * Time.deltaTime, 
                                         0.0f, 
-                                        Input.GetAxis("Horizontal") * velocidad.x * Time.deltaTime));
-        //(para el ejercicio del sol) Primero hacemos una traslación y luego una rotación en el up del vector 3
+                                        Input.GetAxis("Vertical") * velocidad.x * Time.deltaTime));
+        //(para el ejercicio del sol) Primero hacemos una traslaciï¿½n y luego una rotaciï¿½n en el up del vector 3
         transform.Rotate (Vector3.up * velRotation * Time.deltaTime);
     }
 }
