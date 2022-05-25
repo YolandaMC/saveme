@@ -9,9 +9,9 @@ public class Move: MonoBehaviour //esa clase creada llamada Move tiene que llama
     [SerializeField] LayerMask ground;
 
     [SerializeField] float movementSpeed = 200f; //movement speed
-    //[SerializeField] float rotationSpeed = 200f;
+    [SerializeField] float rotationSpeed = 200f;
     [SerializeField] float jumpForce = 5f; //jump force
-    //[SerializeField] public Animator anim;
+    [SerializeField] public Animator anim;
 
     [SerializeField] AudioSource jumpSound; // jump sound
 
@@ -31,17 +31,17 @@ public class Move: MonoBehaviour //esa clase creada llamada Move tiene que llama
     void Update()
     {
 
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Vertical");
+        float verticalInput = Input.GetAxis("Horizontal");
 
         //transform.Rotate(0, horizontalInput*Time.deltaTime*rotationSpeed, 0); //esta funcion hace que el personaje rote
-        transform.Translate(new Vector3(verticalInput*Time.deltaTime*movementSpeed, 0.0f, horizontalInput*Time.deltaTime*movementSpeed));
+        //transform.Translate(new Vector3(horizontalInput, 0f, verticalInput));
 
-        //anim.SetFloat("VelX", horizontalInput);
-        //anim.SetFloat("VelY", verticalInput);
-
+        anim.SetFloat("VelX", horizontalInput);
+        anim.SetFloat("VelY", verticalInput);
+        rb.velocity = new Vector3(horizontalInput* movementSpeed, 0f, verticalInput * movementSpeed);
         //rb.velocity = new Vector3(horizontalInput * movementSpeed, rb.velocity.y, verticalInput * movementSpeed);
-        
+
 
         if (Input.GetButtonDown("Jump") && IsGrounded()) //jump-button pressed & methode is true? --> just jumps when you touch the ground
         {
