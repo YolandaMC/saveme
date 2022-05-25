@@ -9,17 +9,15 @@ public class Move: MonoBehaviour //esa clase creada llamada Move tiene que llama
     [SerializeField] LayerMask ground;
 
     [SerializeField] float movementSpeed = 6f; //movement speed
+    [SerializeField] float rotationSpeed = 200f;
     [SerializeField] float jumpForce = 5f; //jump force
+    private Animator anim;
 
     [SerializeField] AudioSource jumpSound; // jump sound
 
-    [SerializeField]
-    Vector3 velocidad;
-    //public Vector3 velocidad; //variable vector velocidad para el desplazamiento
-    //hago este atributo publico por C# por defecto los hace privados y lo necesito p�blico para poder acceder a �l desde unity
+    //[SerializeField] Vector3 velocidad; //variable vector velocidad para el desplazamiento
 
-    [SerializeField]
-    float velRotation;
+    //[SerializeField] float velRotation;
 
 
     // Start is called before the first frame update
@@ -33,25 +31,25 @@ public class Move: MonoBehaviour //esa clase creada llamada Move tiene que llama
         //por ultimo comento el new o inicializacion de la velocidad porque lo he hehco modificable desde la interfaz (y asi no tengo que venir aqui)
         //ahora hay otra cuestion, hacer publicos atributos puede dar error, entonces unity da otra opcion a hacerlo publico, SerializeField permite que sea privado pero el desarrollador
         //lo modifique desde la interfaz de unity
-
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        rb.velocity = new Vector3(horizontalInput * movementSpeed, rb.velocity.y, verticalInput * movementSpeed);
+        transform.Rotate(0, horizontalInput*Time.deltaTime*rotationSpeed, 0) //esta funcion hace que el personaje rote
+        transform.Translate(new Vector3(0.0f, 0.0f, verticalInput * movementSpeed.x * Time.deltaTime));
 
-        //transform.Translate(new Vector3(Input.GetAxis("Vertical"), 0.0f, Input.GetAxis("Horizontal")));
-        //quiero que la velocidad a la que me voy a desplazar sea constante independientemente del dispositivo donde ejecute (), para ello uso time.deltaTime
-        //transform.Translate(new Vector3(Input.GetAxis("Horizontal") * velocidad.z * Time.deltaTime,
-                                       //0.0f,
-                                       // Input.GetAxis("Vertical") * velocidad.x * Time.deltaTime));
-        //(para el ejercicio del sol) Primero hacemos una traslacion y luego una rotacion en el up del vector 3
-        //transform.Rotate(Vector3.up * velRotation * Time.deltaTime);
+        anim.SetFloat("VelX", x);
+        anim.SetFloat("VelY", y);
+
+        //rb.velocity = new Vector3(horizontalInput * movementSpeed, rb.velocity.y, verticalInput * movementSpeed);
+        
 
         if (Input.GetButtonDown("Jump") && IsGrounded()) //jump-button pressed & methode is true? --> just jumps when you touch the ground
         {

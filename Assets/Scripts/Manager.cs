@@ -7,6 +7,7 @@ public class Manager : MonoBehaviour
 
     [SerializeField] string STATE_MACHINE; //public string STATE_MACHINE;
     //Estados para STATE_MACHINE: MENU, PLAY, GAMEOVER
+    
 
     // Start is called before the first frame update
     void Start()
