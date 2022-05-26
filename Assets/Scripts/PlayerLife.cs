@@ -10,44 +10,50 @@ public class PlayerLife : MonoBehaviour
     bool dead = false; // variable, so that Die() isnt called always
 
     public Text timerText; //variable for timer textfield
-    public float roundTimer; // variable to save the number
+    public Text fin;
+    [SerializeField] private float roundTimer = 300f; // variable to save the number 
 
-    private void Update() //checks every frame
+    void Start()
+    {
+        timerText.text = "" + roundTimer; //inicialización de la variable tiempo
+        fin.enabled = false;
+    }
+
+
+    void Update() //checks every frame
     {
         //Timer
-        roundTimer = roundTimer - Time.deltaTime; //-deltaTime so that the counter goes down
-        int roundTimerInt = (int)roundTimer; //changes a float into an int
-        timerText.text = roundTimerInt.ToString();
+        roundTimer -= Time.deltaTime; //-deltaTime so that the counter goes down
+        timerText.text = " " + roundTimer.ToString("f0"); //f0 quita la parte flotante al pasar el numero a string
 
-        //Dying
-        if (transform.position.y < -1f && !dead || roundTimer <= 0f) //y position is under -1 & dead is false, or: timer is <=0
+        //Dying //if (transform.position.y < -40f && !dead || roundTimer <= 0f) //if (transform.position.y < -40f && !dead)
+        if (transform.position.y < -40f && !dead || roundTimer <= 0f) //y position is under -1 & dead is false, or: timer is <=0
         {
             GetComponent<MeshRenderer>().enabled = false; //shuts down Mesh Renderer
             GetComponent<Rigidbody>().isKinematic = true; //Player cant be moved my objects anymore
-            GetComponent<Move>().enabled = false; //shuts down Move Script
+            //GetComponent<CharacterController>().enabled = false; //shuts down Move Script
 
             Debug.Log("Game over.");
 
+            timerText.text = "0";
+            fin.enabled = true;
+
             Die();
         }
+
     }
-    //private void OnCollisionEnter(Collision collision)
-    //{
-        //if (collision.gameObject.CompareTag("Enemy Body")) //if you collide with the tag //still missing!
-        //{
-            //Die();
-        //}
-    //}
 
     void Die()
     {
-        Invoke(nameof(ReloadLevel), 1.3f); // just ReloadLevel(); wihtout delay is too fast
+        Invoke(nameof(FinishGame), 1.3f); // just FinishGame(); wihtout delay is too fast
         dead = true;
         deathSound.Play();
     }
-    void ReloadLevel()
+    void FinishGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(2); //SceneManager.LoadScene("End Screen"); 
+        
     }
 
 }

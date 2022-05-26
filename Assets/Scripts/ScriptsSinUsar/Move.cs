@@ -9,7 +9,7 @@ public class Move: MonoBehaviour //esa clase creada llamada Move tiene que llama
     [SerializeField] LayerMask ground;
 
     [SerializeField] float movementSpeed = 200f; //movement speed
-    [SerializeField] float rotationSpeed = 200f;
+    //[SerializeField] float rotationSpeed = 200f;
     [SerializeField] float jumpForce = 5f; //jump force
     [SerializeField] public Animator anim;
 
