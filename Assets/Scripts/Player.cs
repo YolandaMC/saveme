@@ -26,8 +26,8 @@ public class Player : MonoBehaviour
         }
         else if (other.GetComponent<Finish>())
         {
-            //SceneManager.LoadScene(2);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); //se reinicia el juego en la misma escena
 
         }
     }
