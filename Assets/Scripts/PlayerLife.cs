@@ -12,6 +12,7 @@ public class PlayerLife : MonoBehaviour
     public Text timerText; //variable for timer textfield
     public Text fin;
     [SerializeField] private float roundTimer = 300f; // variable to save the number 
+    [SerializeField] Text timer;
 
     void Start()
     {
@@ -35,7 +36,7 @@ public class PlayerLife : MonoBehaviour
 
             Debug.Log("Game over.");
 
-            timerText.text = "0";
+            timerText.text = "Time: " + timer;
             fin.enabled = true;
 
             Die();
@@ -51,8 +52,8 @@ public class PlayerLife : MonoBehaviour
     }
     void FinishGame()
     {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        SceneManager.LoadScene(2); //SceneManager.LoadScene("End Screen"); 
+        
+        SceneManager.LoadScene(0); 
         
     }
 

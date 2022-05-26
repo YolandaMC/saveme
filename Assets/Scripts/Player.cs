@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         else if (other.GetComponent<Finish>())
         {
             finishSound.Play();
+            //SceneManager.LoadScene(3);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); //se reinicia el juego en la misma escena
 
         }
