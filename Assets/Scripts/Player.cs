@@ -26,7 +26,9 @@ public class Player : MonoBehaviour
         }
         else if (other.GetComponent<Finish>())
         {
-            SceneManager.LoadScene(2);
+            //SceneManager.LoadScene(2);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
         }
     }
 
