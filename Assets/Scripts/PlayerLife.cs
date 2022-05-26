@@ -9,18 +9,25 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] AudioSource deathSound; //death sound
     bool dead = false; // variable, so that Die() isnt called always
 
-    //public Text timerText; //variable for timer textfield
-    //public float roundTimer; // variable to save the number
+    public Text timerText; //variable for timer textfield
+    public Text fin;
+    [SerializeField] private float roundTimer = 300f; // variable to save the number 
 
-    private void Update() //checks every frame
+    void Start()
+    {
+        timerText.text = "" + roundTimer; //inicialización de la variable tiempo
+        fin.enabled = false;
+    }
+
+
+    void Update() //checks every frame
     {
         //Timer
-        //roundTimer = roundTimer - Time.deltaTime; //-deltaTime so that the counter goes down
-        //int roundTimerInt = (int)roundTimer; //changes a float into an int
-        //timerText.text = roundTimerInt.ToString();
+        roundTimer -= Time.deltaTime; //-deltaTime so that the counter goes down
+        timerText.text = " " + roundTimer.ToString("f0"); //f0 quita la parte flotante al pasar el numero a string
 
-        //Dying //if (transform.position.y < -40f && !dead || roundTimer <= 0f)
-        if (transform.position.y < -40f && !dead) //y position is under -1 & dead is false, or: timer is <=0
+        //Dying //if (transform.position.y < -40f && !dead || roundTimer <= 0f) //if (transform.position.y < -40f && !dead)
+        if (transform.position.y < -40f && !dead || roundTimer <= 0f) //y position is under -1 & dead is false, or: timer is <=0
         {
             GetComponent<MeshRenderer>().enabled = false; //shuts down Mesh Renderer
             GetComponent<Rigidbody>().isKinematic = true; //Player cant be moved my objects anymore
@@ -28,8 +35,12 @@ public class PlayerLife : MonoBehaviour
 
             Debug.Log("Game over.");
 
+            timerText.text = "0";
+            fin.enabled = true;
+
             Die();
         }
+
     }
 
     void Die()
